@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Infinity Tech - Precise Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="a4-page">
+        <div class="footer-graphic"></div>
+        <div class="watermark"></div>
+
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <div class="invoice-to">
+            <div class="header-label">INVOICE TO:</div>
+            <div class="company-name-bold">INFINITY NEXUS INFORMATION <br> TECHNOLOGIES L.L.C</div>
+
+            <div class="contact-details">
+                <div class="contact-item">
+                    <img src="telefon.png" alt="Phone" class="contact-icon">
+                    <span>+971 52 861 44 88</span>
+                </div>
+                <div class="contact-item">
+                    <img src="mesaj.png" alt="Email" class="contact-icon">
+                    <span>info@infinitynext.ae</span>
+                </div>
+                <div class="contact-item">
+                    <img src="internet.png" alt="Web" class="contact-icon">
+                    <span>www.infinitynext.ae</span>
+                </div>
+                <div class="contact-item">
+                    <img src="konum.png" alt="Location" class="contact-icon">
+                    <span>3203 Regal Tower Business Bay Dubai</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-right-block">
+            <div class="main-title">INVOICE</div>
+
+            <div class="client-details">
+                <input type="text" class="client-input client-name" value="CGMA Global Consultants LLC">
+                <input type="text" class="client-input client-address" value="Business Bay Dubai UAE">
+
+                <div class="trn-row">
+                    <span>TRN &nbsp;</span>
+                    <input type="text" class="client-input client-trn-val" value="104045916400003">
+                </div>
+
+                <div class="invoice-meta">
+                    <div class="meta-row">
+                        <span class="meta-label">Invoice Number:</span>
+                        <input type="text" class="meta-input" value="2026INF-0001">
+                    </div>
+                    <div class="meta-row">
+                        <span class="meta-label">Invoice Date:</span>
+                        <input type="text" class="meta-input" value="23/02/2026">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="no-print admin-controls">
+            <button id="add-row-btn">+ Yeni Satır Ekle</button>
+            <button id="download-pdf-btn">PDF Olarak Kaydet</button>
+        </div>
+
+        <div class="table-container" id="invoice-table-container">
+            <div class="table-header">
+                <div class="col-sl">SL:</div>
+                <div class="col-desc">ITEM DESCRIPTION</div>
+                <div class="col-price">UNIT PRICE</div>
+                <div class="col-qty">QUANTITY</div>
+                <div class="col-total">TOTAL</div>
+                <div class="col-action no-print"></div>
+            </div>
+
+            <div class="table-row">
+                <div class="col-sl"><input type="text" class="table-input" value="01"></div>
+                <div class="col-desc"><input type="text" class="table-input" value="NETWORK SERVICES"></div>
+                <div class="col-price"><input type="text" class="table-input" value="500.00 AED"></div>
+                <div class="col-qty"><input type="text" class="table-input" value="1"></div>
+                <div class="col-total"><input type="text" class="table-input" value="500.00 AED"></div>
+                <div class="col-action no-print">
+                    <button class="delete-btn"
+                        onclick="this.parentElement.parentElement.remove(); calculateInvoice();">×</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bank-section">
+            <div class="section-title">BANK INFORMATION</div>
+            <div class="bank">
+                <span>Bank Name : </span>
+                <input type="text" class="bank-input" value="Mashreqbank psc">
+            </div>
+            <div class="bank">
+                <span>Branch Code : </span>
+                <input type="text" class="bank-input" value="000000">
+            </div>
+            <div class="bank">
+                <span>Account No. : </span>
+                <input type="text" class="bank-input" value="AE950330000019101982338">
+            </div>
+        </div>
+
+        <div class="terms-section">
+            <div class="section-title">TERMS AND CONDITION</div>
+            <div class="terms-text">
+                This invoice has been prepared in accordance <br>
+                with the scope of services and payment terms <br>
+                between the parties.
+            </div>
+        </div>
+
+        <div class="totals-section">
+            <div class="total-row">
+                <span>Sub Total</span>
+                <span id="sub-total">0.00 AED</span>
+            </div>
+
+            <div class="grand-total-box">
+                <span>TOTAL</span>
+                <span id="final-grand-total">0.00 AED</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hesaplama Fonksiyonu
+        function calculateInvoice() {
+            let subTotal = 0;
+            const rows = document.querySelectorAll('.table-row');
+
+            rows.forEach(row => {
+                const priceInput = row.querySelector('.col-price .table-input').value;
+                const qtyInput = row.querySelector('.col-qty .table-input').value;
+
+                const price = parseFloat(priceInput.replace(/[^0-9.-]+/g, "")) || 0;
+                const qty = parseFloat(qtyInput) || 0;
+
+                const total = price * qty;
+                subTotal += total;
+
+                row.querySelector('.col-total .table-input').value = total.toFixed(2) + " AED";
+            });
+
+            // Hesaplamalar
+            const taxRate = 0.05;
+            const taxAmount = subTotal * taxRate;
+            const grandTotal = subTotal + taxAmount;
+
+            // Alt kısımdaki alanları güncelle
+            if (document.getElementById('sub-total'))
+                document.getElementById('sub-total').innerText = subTotal.toFixed(2) + " AED";
+
+            if (document.getElementById('tax-amount'))
+                document.getElementById('tax-amount').innerText = taxAmount.toFixed(2) + " AED";
+
+            if (document.getElementById('grand-total'))
+                document.getElementById('grand-total').innerText = grandTotal.toFixed(2) + " AED";
+
+            // --- MOR KUTU GÜNCELLEMESİ ---
+            const finalBox = document.getElementById('final-grand-total');
+            if (finalBox) {
+                finalBox.innerText = grandTotal.toFixed(2) + " AED";
+            } else {
+                console.error("Hata: 'final-grand-total' ID'li alan HTML'de bulunamadı!");
+            }
+        }
+
+        // Yeni Satır Ekleme Butonu
+        document.getElementById('add-row-btn').addEventListener('click', function () {
+            const tableContainer = document.getElementById('invoice-table-container');
+            const rowCount = tableContainer.querySelectorAll('.table-row').length + 1;
+            const formattedIndex = rowCount < 10 ? '0' + rowCount : rowCount;
+
+            const newRow = document.createElement('div');
+            newRow.className = 'table-row';
+            newRow.innerHTML = `
+        <div class="col-sl"><input type="text" class="table-input" value="${formattedIndex}"></div>
+        <div class="col-desc"><input type="text" class="table-input" placeholder="DESCRIPTION"></div>
+        <div class="col-price"><input type="text" class="table-input" value="0.00"></div>
+        <div class="col-qty"><input type="text" class="table-input" value="1"></div>
+        <div class="col-total"><input type="text" class="table-input" readonly value="0.00 AED"></div>
+<div class="col-action no-print">
+        <button class="delete-btn" onclick="this.closest('.table-row').remove(); calculateInvoice();">×</button>
+    </div>
+    `;
+            tableContainer.appendChild(newRow);
+
+            // Yeni satırdaki inputlara dinleyici ekle
+            attachEvents(newRow);
+        });
+
+        // Inputlara yazı yazıldığında hesaplamayı tetikle
+        function attachEvents(row) {
+            row.querySelectorAll('.table-input').forEach(input => {
+                input.addEventListener('input', calculateInvoice);
+            });
+        }
+
+        // Sayfa ilk açıldığında mevcut satırları dinlemeye başla
+        document.querySelectorAll('.table-row').forEach(row => attachEvents(row));
+
+        // İlk açılışta bir kez hesapla
+        calculateInvoice();
+
+        document.getElementById('download-pdf-btn').addEventListener('click', function () {
+            // Yazdırma penceresini açmadan önce inputlardaki değerleri metne çevirebilirsin 
+            // (Opsiyonel: Daha temiz bir çıktı için tarayıcı yazdırma ayarları yeterlidir)
+            window.print();
+        });
+    </script>
+</body>
+
+</html>
