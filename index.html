@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:;">
     <title>Infinity Tech - Precise Invoice</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -67,7 +69,6 @@
             </div>
         </div>
 
-
         <div class="no-print admin-controls">
             <button id="add-row-btn">+ Yeni Satır Ekle</button>
             <button id="download-pdf-btn">PDF Olarak Kaydet</button>
@@ -88,10 +89,9 @@
                 <div class="col-desc"><input type="text" class="table-input" value="NETWORK SERVICES"></div>
                 <div class="col-price"><input type="text" class="table-input" value="500.00 AED"></div>
                 <div class="col-qty"><input type="text" class="table-input" value="1"></div>
-                <div class="col-total"><input type="text" class="table-input" value="500.00 AED"></div>
+                <div class="col-total"><input type="text" class="table-input" value="500.00 AED" readonly></div>
                 <div class="col-action no-print">
-                    <button class="delete-btn"
-                        onclick="this.parentElement.parentElement.remove(); calculateInvoice();">×</button>
+                    <button class="delete-btn">×</button>
                 </div>
             </div>
         </div>
@@ -135,7 +135,6 @@
     </div>
 
     <script>
-        // Hesaplama Fonksiyonu
         function calculateInvoice() {
             let subTotal = 0;
             const rows = document.querySelectorAll('.table-row');
@@ -143,81 +142,96 @@
             rows.forEach(row => {
                 const priceInput = row.querySelector('.col-price .table-input').value;
                 const qtyInput = row.querySelector('.col-qty .table-input').value;
-
                 const price = parseFloat(priceInput.replace(/[^0-9.-]+/g, "")) || 0;
                 const qty = parseFloat(qtyInput) || 0;
-
                 const total = price * qty;
                 subTotal += total;
-
-                row.querySelector('.col-total .table-input').value = total.toFixed(2) + " AED";
+                const totalInput = row.querySelector('.col-total .table-input');
+                if (totalInput) totalInput.value = total.toFixed(2) + " AED";
             });
 
-            // Hesaplamalar
             const taxRate = 0.05;
             const taxAmount = subTotal * taxRate;
             const grandTotal = subTotal + taxAmount;
 
-            // Alt kısımdaki alanları güncelle
-            if (document.getElementById('sub-total'))
-                document.getElementById('sub-total').innerText = subTotal.toFixed(2) + " AED";
+            const subTotalEl = document.getElementById('sub-total');
+            if (subTotalEl) subTotalEl.textContent = subTotal.toFixed(2) + " AED";
 
-            if (document.getElementById('tax-amount'))
-                document.getElementById('tax-amount').innerText = taxAmount.toFixed(2) + " AED";
-
-            if (document.getElementById('grand-total'))
-                document.getElementById('grand-total').innerText = grandTotal.toFixed(2) + " AED";
-
-            // --- MOR KUTU GÜNCELLEMESİ ---
             const finalBox = document.getElementById('final-grand-total');
-            if (finalBox) {
-                finalBox.innerText = grandTotal.toFixed(2) + " AED";
-            } else {
-                console.error("Hata: 'final-grand-total' ID'li alan HTML'de bulunamadı!");
-            }
+            if (finalBox) finalBox.textContent = grandTotal.toFixed(2) + " AED";
         }
 
-        // Yeni Satır Ekleme Butonu
-        document.getElementById('add-row-btn').addEventListener('click', function () {
-            const tableContainer = document.getElementById('invoice-table-container');
-            const rowCount = tableContainer.querySelectorAll('.table-row').length + 1;
-            const formattedIndex = rowCount < 10 ? '0' + rowCount : rowCount;
+        function createTableRow(index) {
+            const row = document.createElement('div');
+            row.className = 'table-row';
+            const columns = [
+                { class: 'col-sl', value: index },
+                { class: 'col-desc', value: '', placeholder: 'ITEM DESCRIPTION' },
+                { class: 'col-price', value: '0.00' },
+                { class: 'col-qty', value: '1' },
+                { class: 'col-total', value: '0.00 AED', readonly: true }
+            ];
 
-            const newRow = document.createElement('div');
-            newRow.className = 'table-row';
-            newRow.innerHTML = `
-        <div class="col-sl"><input type="text" class="table-input" value="${formattedIndex}"></div>
-        <div class="col-desc"><input type="text" class="table-input" placeholder="DESCRIPTION"></div>
-        <div class="col-price"><input type="text" class="table-input" value="0.00"></div>
-        <div class="col-qty"><input type="text" class="table-input" value="1"></div>
-        <div class="col-total"><input type="text" class="table-input" readonly value="0.00 AED"></div>
-<div class="col-action no-print">
-        <button class="delete-btn" onclick="this.closest('.table-row').remove(); calculateInvoice();">×</button>
-    </div>
-    `;
-            tableContainer.appendChild(newRow);
-
-            // Yeni satırdaki inputlara dinleyici ekle
-            attachEvents(newRow);
-        });
-
-        // Inputlara yazı yazıldığında hesaplamayı tetikle
-        function attachEvents(row) {
-            row.querySelectorAll('.table-input').forEach(input => {
+            columns.forEach(col => {
+                const div = document.createElement('div');
+                div.className = col.class;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'table-input';
+                input.value = col.value;
+                if (col.placeholder) input.placeholder = col.placeholder;
+                if (col.readonly) input.readOnly = true;
                 input.addEventListener('input', calculateInvoice);
+                div.appendChild(input);
+                row.appendChild(div);
             });
+
+            const actionDiv = document.createElement('div');
+            actionDiv.className = 'col-action no-print';
+            const delBtn = document.createElement('button');
+            delBtn.className = 'delete-btn';
+            delBtn.textContent = '×';
+            delBtn.addEventListener('click', () => {
+                row.remove();
+                calculateInvoice();
+            });
+            actionDiv.appendChild(delBtn);
+            row.appendChild(actionDiv);
+            return row;
         }
 
-        // Sayfa ilk açıldığında mevcut satırları dinlemeye başla
-        document.querySelectorAll('.table-row').forEach(row => attachEvents(row));
+        document.addEventListener('DOMContentLoaded', () => {
+            const addBtn = document.getElementById('add-row-btn');
+            if (addBtn) {
+                addBtn.addEventListener('click', () => {
+                    const tableContainer = document.getElementById('invoice-table-container');
+                    const rowCount = tableContainer.querySelectorAll('.table-row').length + 1;
+                    const formattedIndex = rowCount < 10 ? '0' + rowCount : rowCount;
+                    const newRow = createTableRow(formattedIndex);
+                    tableContainer.appendChild(newRow);
+                    calculateInvoice();
+                });
+            }
 
-        // İlk açılışta bir kez hesapla
-        calculateInvoice();
+            const downloadBtn = document.getElementById('download-pdf-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => window.print());
+            }
 
-        document.getElementById('download-pdf-btn').addEventListener('click', function () {
-            // Yazdırma penceresini açmadan önce inputlardaki değerleri metne çevirebilirsin 
-            // (Opsiyonel: Daha temiz bir çıktı için tarayıcı yazdırma ayarları yeterlidir)
-            window.print();
+            document.querySelectorAll('.table-row').forEach(row => {
+                row.querySelectorAll('.table-input').forEach(input => {
+                    input.addEventListener('input', calculateInvoice);
+                });
+                const initialDelBtn = row.querySelector('.delete-btn');
+                if (initialDelBtn) {
+                    initialDelBtn.addEventListener('click', () => {
+                        row.remove();
+                        calculateInvoice();
+                    });
+                }
+            });
+
+            calculateInvoice();
         });
     </script>
 </body>
