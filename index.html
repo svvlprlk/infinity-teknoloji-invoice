@@ -12,129 +12,155 @@
 </head>
 
 <body>
-    <div class="a4-page">
-        <div class="footer-graphic"></div>
-        <div class="watermark"></div>
 
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo">
-        </div>
+    <div id="invoice-wrapper" style="display: none;">
 
-        <div class="invoice-to">
-            <div class="header-label">INVOICE TO:</div>
-            <div class="company-name-bold">INFINITY NEXUS INFORMATION <br> TECHNOLOGIES L.L.C</div>
+        <div class="a4-page">
+            <div class="footer-graphic"></div>
+            <div class="watermark"></div>
 
-            <div class="contact-details">
-                <div class="contact-item">
-                    <img src="telefon.png" alt="Phone" class="contact-icon">
-                    <span>+971 52 861 44 88</span>
-                </div>
-                <div class="contact-item">
-                    <img src="mesaj.png" alt="Email" class="contact-icon">
-                    <span>info@infinitynext.ae</span>
-                </div>
-                <div class="contact-item">
-                    <img src="internet.png" alt="Web" class="contact-icon">
-                    <span>www.infinitynext.ae</span>
-                </div>
-                <div class="contact-item">
-                    <img src="konum.png" alt="Location" class="contact-icon">
-                    <span>3203 Regal Tower Business Bay Dubai</span>
-                </div>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo">
             </div>
-        </div>
 
-        <div class="header-right-block">
-            <div class="main-title">INVOICE</div>
+            <div class="invoice-to">
+                <div class="header-label">INVOICE TO:</div>
+                <div class="company-name-bold">INFINITY NEXUS INFORMATION <br> TECHNOLOGIES L.L.C</div>
 
-            <div class="client-details">
-                <input type="text" class="client-input client-name" value="CGMA Global Consultants LLC">
-                <input type="text" class="client-input client-address" value="Business Bay Dubai UAE">
-
-                <div class="trn-row">
-                    <span>TRN &nbsp;</span>
-                    <input type="text" class="client-input client-trn-val" value="104045916400003">
-                </div>
-
-                <div class="invoice-meta">
-                    <div class="meta-row">
-                        <span class="meta-label">Invoice Number:</span>
-                        <input type="text" class="meta-input" value="2026INF-0001">
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <img src="telefon.png" alt="Phone" class="contact-icon">
+                        <span>+971 52 861 44 88</span>
                     </div>
-                    <div class="meta-row">
-                        <span class="meta-label">Invoice Date:</span>
-                        <input type="text" class="meta-input" value="23/02/2026">
+                    <div class="contact-item">
+                        <img src="mesaj.png" alt="Email" class="contact-icon">
+                        <span>info@infinitynext.ae</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="internet.png" alt="Web" class="contact-icon">
+                        <span>www.infinitynext.ae</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="konum.png" alt="Location" class="contact-icon">
+                        <span>3203 Regal Tower Business Bay Dubai</span>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="no-print admin-controls">
-            <button id="add-row-btn">+ Yeni Satır Ekle</button>
-            <button id="download-pdf-btn">PDF Olarak Kaydet</button>
-        </div>
+            <div class="header-right-block">
+                <div class="main-title">INVOICE</div>
 
-        <div class="table-container" id="invoice-table-container">
-            <div class="table-header">
-                <div class="col-sl">SL:</div>
-                <div class="col-desc">ITEM DESCRIPTION</div>
-                <div class="col-price">UNIT PRICE</div>
-                <div class="col-qty">QUANTITY</div>
-                <div class="col-total">TOTAL</div>
-                <div class="col-action no-print"></div>
-            </div>
+                <div class="client-details">
+                    <input type="text" class="client-input client-name" value="CGMA Global Consultants LLC">
+                    <input type="text" class="client-input client-address" value="Business Bay Dubai UAE">
 
-            <div class="table-row">
-                <div class="col-sl"><input type="text" class="table-input" value="01"></div>
-                <div class="col-desc"><input type="text" class="table-input" value="NETWORK SERVICES"></div>
-                <div class="col-price"><input type="text" class="table-input" value="500.00 AED"></div>
-                <div class="col-qty"><input type="text" class="table-input" value="1"></div>
-                <div class="col-total"><input type="text" class="table-input" value="500.00 AED" readonly></div>
-                <div class="col-action no-print">
-                    <button class="delete-btn">×</button>
+                    <div class="trn-row">
+                        <span>TRN &nbsp;</span>
+                        <input type="text" class="client-input client-trn-val" value="104045916400003">
+                    </div>
+
+                    <div class="invoice-meta">
+                        <div class="meta-row">
+                            <span class="meta-label">Invoice Number:</span>
+                            <input type="text" class="meta-input" value="2026INF-0001">
+                        </div>
+                        <div class="meta-row">
+                            <span class="meta-label">Invoice Date:</span>
+                            <input type="text" class="meta-input" value="23/02/2026">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="bank-section">
-            <div class="section-title">BANK INFORMATION</div>
-            <div class="bank">
-                <span>Bank Name : </span>
-                <input type="text" class="bank-input" value="Mashreqbank psc">
-            </div>
-            <div class="bank">
-                <span>Branch Code : </span>
-                <input type="text" class="bank-input" value="000000">
-            </div>
-            <div class="bank">
-                <span>Account No. : </span>
-                <input type="text" class="bank-input" value="AE950330000019101982338">
-            </div>
-        </div>
-
-        <div class="terms-section">
-            <div class="section-title">TERMS AND CONDITION</div>
-            <div class="terms-text">
-                This invoice has been prepared in accordance <br>
-                with the scope of services and payment terms <br>
-                between the parties.
-            </div>
-        </div>
-
-        <div class="totals-section">
-            <div class="total-row">
-                <span>Sub Total</span>
-                <span id="sub-total">0.00 AED</span>
+            <div class="no-print admin-controls">
+                <button id="add-row-btn">+ Yeni Satır Ekle</button>
+                <button id="download-pdf-btn">PDF Olarak Kaydet</button>
             </div>
 
-            <div class="grand-total-box">
-                <span>TOTAL</span>
-                <span id="final-grand-total">0.00 AED</span>
+            <div class="table-container" id="invoice-table-container">
+                <div class="table-header">
+                    <div class="col-sl">SL:</div>
+                    <div class="col-desc">ITEM DESCRIPTION</div>
+                    <div class="col-price">UNIT PRICE</div>
+                    <div class="col-qty">QUANTITY</div>
+                    <div class="col-total">TOTAL</div>
+                    <div class="col-action no-print"></div>
+                </div>
+
+                <div class="table-row">
+                    <div class="col-sl"><input type="text" class="table-input" value="01"></div>
+                    <div class="col-desc"><input type="text" class="table-input" value="NETWORK SERVICES"></div>
+                    <div class="col-price"><input type="text" class="table-input" value="500.00 AED"></div>
+                    <div class="col-qty"><input type="text" class="table-input" value="1"></div>
+                    <div class="col-total"><input type="text" class="table-input" value="500.00 AED" readonly></div>
+                    <div class="col-action no-print">
+                        <button class="delete-btn">×</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bank-section">
+                <div class="section-title">BANK INFORMATION</div>
+                <div class="bank">
+                    <span>Bank Name : </span>
+                    <input type="text" class="bank-input" value="Mashreqbank psc">
+                </div>
+                <div class="bank">
+                    <span>Branch Code : </span>
+                    <input type="text" class="bank-input" value="000000">
+                </div>
+                <div class="bank">
+                    <span>Account No. : </span>
+                    <input type="text" class="bank-input" value="AE950330000019101982338">
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <div class="section-title">TERMS AND CONDITION</div>
+                <div class="terms-text">
+                    This invoice has been prepared in accordance <br>
+                    with the scope of services and payment terms <br>
+                    between the parties.
+                </div>
+            </div>
+
+            <div class="totals-section">
+                <div class="total-row">
+                    <span>Sub Total</span>
+                    <span id="sub-total">0.00 AED</span>
+                </div>
+
+                <div class="grand-total-box">
+                    <span>TOTAL</span>
+                    <span id="final-grand-total">0.00 AED</span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+
+        const companyConfigs = {
+            vishnu: {
+                logo: "vishnu logo.svg",
+                name: "VISHNU DIGITAL REKLAM AJANSI",
+                phone: "+90 ... (Vishnu Telefon)",
+                email: "info@vishnu.com",
+                web: "www.vishnu.com",
+                address: "Beyoğlu, İstanbul",
+                themeColor: "#5d2e85" // Vishnu Moru
+            },
+            infinity: {
+                logo: "logo.png",
+                name: "INFINITY NEXUS INFORMATION TECHNOLOGIES L.L.C",
+                phone: "+971 52 861 44 88",
+                email: "info@infinitynext.ae",
+                web: "www.infinitynext.ae",
+                address: "3203 Regal Tower Business Bay Dubai",
+                themeColor: "#1a1a1a" // Infinity Siyah/Gri
+            }
+        };
+
         function calculateInvoice() {
             let subTotal = 0;
             const rows = document.querySelectorAll('.table-row');
@@ -200,6 +226,24 @@
             return row;
         }
 
+
+        function initInvoice(type) {
+            const config = companyConfigs[type];
+
+            // 1. Logoyu ve Metinleri Değiştir
+            document.getElementById('dynamic-logo').src = config.logo;
+            document.getElementById('dynamic-comp-name').innerText = config.name;
+            document.getElementById('dynamic-phone').innerText = config.phone;
+            // (Email, Web ve Adres için de id verip buraya ekleyebilirsin)
+
+            // 2. Renkleri Güncelle (Opsiyonel: Tablo başlığı rengini değiştirir)
+            document.querySelector('.table-header').style.backgroundColor = config.themeColor;
+            document.querySelector('.grand-total-box').style.backgroundColor = config.themeColor;
+
+            // 3. Ekranları Değiştir
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('invoice-main-container').style.display = 'block';
+        }
         document.addEventListener('DOMContentLoaded', () => {
             const addBtn = document.getElementById('add-row-btn');
             if (addBtn) {
@@ -233,6 +277,8 @@
 
             calculateInvoice();
         });
+
+
     </script>
 </body>
 
