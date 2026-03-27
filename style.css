@@ -15,10 +15,11 @@
   color: #000;
 }
 
+/* --- LOGO --- */
 
 .logo-container {
   position: absolute;
-  top: -70pt;
+  top: -60pt;
   width: 200pt;
   left: 185.5pt;
 }
@@ -29,18 +30,21 @@
   display: block;
 }
 
+/* --- SAĞ ÜST (INVOICE TO BLOĞU) --- */
 .invoice-to {
   position: absolute;
-  top: 111.19pt;
-  left: 37.35pt;
+  top: 100.19pt; /* Sol blokla aynı dikey başlangıç */
+  right: 49.36pt;
+  width: 220pt; /* Genişliği eşitleyerek hizalamayı kolaylaştırdık */
 }
 
 .header-label {
-  font-size: 20pt;
-  font-weight: 550;
-  margin-bottom: 15pt;
+  font-size: 22pt;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 44pt; /* SOLDAKİ "INVOICE" BAŞLIĞININ YÜKSEKLİĞİNE GÖRE AYARLANDI */
+  display: block;
 }
-
 .company-name-bold {
   font-size: 10pt;
   font-weight: 700;
@@ -49,33 +53,32 @@
   line-height: 1.2;
 }
 
+/* İletişim detaylarının başlangıcını sol tarafla eşitlemek için ek dokunuş */
 .contact-details {
-  font-size: 8.5pt;
-  line-height: 1.5;
-  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 2pt;
+  margin-top: 0; /* Üstteki boşluğu sıfırlayarak margin-bottom ile kontrol sağlıyoruz */
 }
 
-
-
+/* --- SOL ÜST (INVOICE BLOĞU) --- */
 .header-right-block {
   position: absolute;
-  top: 111.19pt; 
-  right: 0pt;
+  top: 97.19pt;
+  left: 37.35pt;
   width: 220pt;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   z-index: 20;
 }
 
 .main-title {
-  position: relative !important;
-  right: auto !important;
   font-size: 41pt;
   font-weight: 500;
   letter-spacing: -1pt;
   line-height: 1;
-  margin-bottom: 30pt; 
+  margin-bottom: 25pt; /* Başlık ile altındaki metinler arasındaki boşluğu sabitledik */
   text-align: left;
 }
 
@@ -87,18 +90,18 @@
 .client-name,
 .client-address {
   position: relative;
-  top: -20pt;
+  top: 0pt; /* Absolute kaydırmayı sıfırladık */
   font-size: 10pt;
   font-weight: 700;
   display: block;
   margin-bottom: 2pt;
 }
 
-
+/* TRN Satırı: Karmaşanın sebebi buradaki absolute idi, düzelttik */
 .trn-row {
   position: relative !important;
-  right: -2pt !important;
-  top: -27pt !important;
+  right: 0pt !important;
+  top: 0pt !important; /* Absolute kaydırmayı sıfırladık */
   display: flex;
   align-items: center;
   font-size: 10pt;
@@ -106,15 +109,14 @@
   margin-top: 5pt;
   margin-bottom: 15pt;
 }
-
 .invoice-meta {
   width: 100%;
 }
 
 .meta-row {
   position: relative;
-  right: -3pt !important;
-  top: -35pt !important;
+  right: 0pt !important;
+  top: 0pt !important; /* Absolute kaydırmayı sıfırladık */
   display: flex;
   align-items: center;
   margin-bottom: 4pt;
@@ -123,7 +125,7 @@
 .meta-label {
   font-size: 8pt;
   font-weight: 600;
-  width: 85pt; 
+  width: 85pt; /* Etiketleri hizalar */
 }
 
 .meta-input {
@@ -134,14 +136,16 @@
   background: transparent;
 }
 
-
+/* --- TABLO SİSTEMİ GÜNCELLEME --- */
+/* Tabloyu tekrar sayfaya göre konumlandırıyoruz */
 .table-container {
   position: absolute;
-  top: 290pt; 
+  top: 290pt; /* INVOICE bloğunun altına gelecek şekilde dikey mesafe */
+  left: 35pt;
   right: 35pt;
   z-index: 10;
 }
-
+/* Sütun genişliklerini silme butonu sığacak şekilde daralttık */
 .col-sl {
   width: 35pt;
   padding-left: 5pt;
@@ -177,7 +181,7 @@
   font-size: 9pt;
 }
 
-
+/* .table-body yerine .table-row kullanarak çoklu satır desteği */
 .table-row {
   min-height: 40pt;
   border-bottom: 1.5pt solid #5d2e85;
@@ -185,7 +189,7 @@
   align-items: center;
 }
 
-
+/* Tablo içindeki inputların stili */
 .table-input {
   border: 1px dashed transparent;
   background: transparent;
@@ -196,7 +200,7 @@
   width: 100%;
   padding: 5px;
   outline: none;
-  text-align: inherit; 
+  text-align: inherit; /* Sütunun hizalamasını devralır */
   transition: background 0.3s;
 }
 
@@ -206,15 +210,15 @@
   background-color: rgba(93, 46, 133, 0.05);
 }
 
-
+/* Tablo Sütun Genişlikleri ve Hizalamalar */
 .col-sl {
-  width: 40pt; 
+  width: 40pt; /* Daraltıldı */
   padding-left: 10pt;
   text-align: left;
 }
 
 .col-desc {
-  flex: 1; 
+  flex: 1; /* Esnek kalmaya devam ediyor */
   text-align: left;
 }
 
@@ -234,7 +238,7 @@
   padding-right: 10pt;
 }
 
-
+/* Silme butonu için yeni sütun */
 .col-action {
   width: 35pt;
   display: flex;
@@ -242,7 +246,7 @@
   align-items: center;
 }
 
-
+/* Silme Butonu Tasarımı */
 .delete-btn {
   background: #ff4d4d;
   color: white;
@@ -254,6 +258,7 @@
   font-weight: bold;
 }
 
+/* Ekle butonu konumu */
 #add-row-btn {
   position: absolute;
   top: 295pt;
@@ -265,14 +270,16 @@
   background-color: #cc0000;
 }
 
+/* TRN Hizalama Düzeltmesi */
 .trn-row {
   display: flex;
   align-items: center;
   font-size: 10pt;
   font-weight: 700;
-  margin-top: 4pt; 
+  margin-top: 4pt; /* Üstteki adresten boşluk */
 }
 
+/* --- BANKA BİLGİLERİ --- */
 .bank-section {
   position: absolute;
   top: 532.24pt;
@@ -292,7 +299,7 @@
   line-height: 1.4;
 }
 
-
+/* --- TERMS AND CONDITION --- */
 .terms-section {
   position: absolute;
   top: 589pt;
@@ -307,6 +314,7 @@
   color: #000;
 }
 
+/* --- TOTALS (Sağ Alt) --- */
 .totals-section {
   position: absolute;
   top: 549.45pt;
@@ -335,7 +343,7 @@
   margin-left: -14.64pt;
 }
 
-
+/* --- ALT GRAFİK (DALGA) --- */
 .footer-graphic {
   position: absolute;
   bottom: 0;
@@ -349,12 +357,12 @@
   pointer-events: none;
 }
 
-
+/* --- WATERMARK (ŞEFFAF ARKA PLAN LOGOSU) - GÜNCELLENDİ (ÇOK DAHA BÜYÜK) --- */
 .watermark {
   position: absolute;
-  top: 25pt;
+  top: 25pt; /* Dev boyutuyla tablonun ve metinlerin arkasına tam ortalanması için yukarı çektik */
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Yatayda tam ortalama */
   width: 1000pt;
   height: 850pt;
   background-image: url("2.png");
@@ -362,14 +370,16 @@
   background-position: center;
   background-size: contain;
 
-  pointer-events: none;
-  z-index: 1; 
+  pointer-events: none; /* Metin seçmeyi engellememesi için */
+  z-index: 1; /* Metinlerin arkasında kalması için */
 }
 
+/* --- Yazma Alanları --- *
 
+/* Input Genel Tasarımı */
 .client-input,
 .meta-input {
-  border: 1px dashed transparent; 
+  border: 1px dashed transparent; /* Normalde belli belirsiz */
   background: transparent;
   font-family: inherit;
   color: inherit;
@@ -379,6 +389,7 @@
   transition: border 0.3s;
 }
 
+/* Üzerine gelince veya tıklayınca düzenleme alanı olduğu belli olsun */
 .client-input:hover,
 .meta-input:focus {
   border: 1px dashed #5d2e85;
@@ -389,6 +400,7 @@
   top: 18pt;
 }
 
+/* TRN Satırı Düzenlemesi */
 .trn-row {
   position: absolute;
   display: flex;
@@ -404,7 +416,7 @@
   width: auto;
 }
 
-
+/* Yazdırma Esnasında Kutuları Gizle */
 @media print {
   .client-input,
   .meta-input {
@@ -416,7 +428,7 @@
 
 #add-row-btn {
   position: absolute;
-  top: 267pt; 
+  top: 267pt; /* Tablonun hemen üstünde durması için */
   right: 35pt;
   background-color: #5d2e85;
   color: white;
@@ -434,12 +446,14 @@
   background-color: #4a246a;
 }
 
+/* Yazdırma ekranında butonun çıkmaması için */
 @media print {
   .no-print {
     display: none !important;
   }
 }
 
+/* Silme Butonu Sütun Genişliği */
 .col-action {
   width: 30pt;
   display: flex;
@@ -447,6 +461,7 @@
   align-items: center;
 }
 
+/* Silme Butonu Tasarımı */
 .delete-btn {
   background-color: #ff4d4d;
   color: white;
@@ -469,6 +484,7 @@
   transform: scale(1.1);
 }
 
+/* Yazdırma sırasında butonları gizle */
 @media print {
   .no-print {
     display: none !important;
@@ -476,6 +492,7 @@
 }
 
 @media print {
+  /* Butonları ve istemediğin alanları gizle */
   .no-print,
   #add-row-btn,
   #download-pdf-btn,
@@ -484,12 +501,13 @@
     display: none !important;
   }
 
-
+  /* Arka plan resimlerinin (Logo, Watermark vb.) PDF'de görünmesini zorunlu kılar */
   body {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
+  /* Sayfa kenar boşluklarını sıfırla */
   @page {
     margin: 0;
     size: auto;
@@ -502,17 +520,18 @@
   }
 }
 
+/* İletişim bilgilerinin olduğu genel alanı biraz daha ferahlatıyoruz */
 .contact-details {
   display: flex;
   flex-direction: column;
-  gap: 2pt;
+  gap: 2pt; /* Satırlar arası boşluğu 6pt'den 8pt'ye çıkardık */
   margin-top: 12pt;
 }
 
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 5pt; 
+  gap: 5pt; /* İkon ile metin arasındaki boşluğu biraz açtık */
 }
 
 .contact-icon {
@@ -521,19 +540,21 @@
   object-fit: contain;
 }
 
+/* Metinleri ikonlara uyumlu olacak şekilde büyütüyoruz */
 .contact-item span {
-  font-size: 10pt; 
+  font-size: 10pt; /* 8.5pt idi, standart okunabilirlik seviyesine çektik */
   font-weight: 500;
   color: #000;
 }
 
+/* Başlık kısmını da (INVOICE TO) desteklemesi için hafif büyütüyoruz */
 .header-label {
   font-size: 22pt;
   font-weight: 600;
   margin-bottom: 18pt;
 }
 
-
+/* Banka inputlarının genel stili */
 .bank-input {
   border: 1px dashed transparent;
   background: transparent;
@@ -541,23 +562,53 @@
   font-size: 8pt;
   font-weight: 600;
   color: inherit;
-  width: 200pt; 
+  width: 200pt; /* Genişliği ihtiyaca göre ayarlayabilirsin */
   padding: 2px;
   outline: none;
   transition: 0.3s;
 }
 
+/* Üzerine gelince düzenleme alanı olduğu belli olsun */
 .bank-input:hover,
 .bank-input:focus {
   border: 1px dashed #5d2e85;
   background-color: rgba(93, 46, 133, 0.05);
 }
 
-
 @media print {
-  .bank-input {
-    border: none !important;
-    background: transparent !important;
+  @page {
+    margin: 0;
+    size: A4 portrait;
+  }
+
+  body {
+    margin: 0 !important;
     padding: 0 !important;
+    width: 210mm; /* A4 genişliği */
+    height: 297mm; /* A4 yüksekliği */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .a4-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative;
+    left: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+  }
+
+  /* Yazdırılmayacak öğeler */
+  .no-print,
+  #add-row-btn,
+  #download-pdf-btn,
+  .col-action,
+  .admin-controls {
+    display: none !important;
   }
 }
